@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>StudyAI — AI Student SuperHub</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand-block">
+          <div class="brand-mark">S</div>
+          <div>
+            <div class="brand-name">StudyAI</div>
+            <small>Learn • Plan • Practice</small>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="Primary navigation">
+          <button class="nav-item active" data-nav="dashboard">🏠 Dashboard</button>
+          <button class="nav-item" data-nav="learning">🤖 AI Learning Hub</button>
+          <button class="nav-item" data-nav="planner">📚 Smart Study Planner</button>
+          <button class="nav-item" data-nav="focus">⏱️ Focus Zone</button>
+          <button class="nav-item" data-nav="quiz">🧠 AI Quiz Arena</button>
+          <button class="nav-item" data-nav="games">🎮 AI Game Zone</button>
+          <button class="nav-item" data-nav="notes">📝 Smart Notes</button>
+          <button class="nav-item" data-nav="goals">🎯 Goals</button>
+          <button class="nav-item" data-nav="analytics">📊 Analytics</button>
+          <button class="nav-item" data-nav="profile">👤 Profile</button>
+          <button class="nav-item" data-nav="leaderboard">🌍 Leaderboard</button>
+          <button class="nav-item" data-nav="settings">⚙️ Settings</button>
+        </nav>
+      </aside>
+
+      <main class="content">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Student superhub</p>
+            <h1 id="page-title">Dashboard</h1>
+          </div>
+
+          <div class="topbar-actions">
+            <span class="pill" id="points-pill">0 pts</span>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">☀️</button>
+          </div>
+        </header>
+
+        <section class="view" id="dashboard-view">
+          <div class="welcome-card card">
+            <div>
+              <p class="eyebrow">Welcome back</p>
+              <h2 id="welcome-name">Student</h2>
+            </div>
+            <div class="mini-stat">
+              <span>Today</span>
+              <strong id="today-task-count">0 tasks</strong>
+            </div>
+          </div>
+
+          <div class="stats-grid" id="dashboard-stats"></div>
+
+          <div class="quick-actions-card card">
+            <div class="section-heading">
+              <h3>Quick actions</h3>
+            </div>
+            <div class="quick-actions">
+              <button class="action-button" data-quick="focus">Start Focus</button>
+              <button class="action-button" data-quick="quiz">Start Quiz</button>
+              <button class="action-button" data-quick="task">Add Task</button>
+              <button class="action-button" data-quick="note">New Note</button>
+              <button class="action-button" data-quick="game">Play Game</button>
+              <button class="action-button" data-quick="analytics">View Analytics</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="view hidden" id="learning-view">
+          <div class="lesson-shell card">
+            <div class="section-heading">
+              <h3>AI Learning Hub</h3>
+            </div>
+            <div class="learning-layout">
+              <div class="learning-categories" id="learning-categories"></div>
+              <div class="learning-content" id="learning-content"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="view hidden" id="planner-view">
+          <div class="planner-card card">
+            <div class="section-heading">
+              <h3>Smart Study Planner</h3>
+            </div>
+
+            <form class="task-form" id="planner-form">
+              <div class="field-grid">
+                <label>
+                  Task title
+                  <input type="text" id="task-title" placeholder="e.g. Revise Biology chapter" required />
+                </label>
+                <label>
+                  Subject
+                  <input type="text" id="task-subject" placeholder="Maths, Science..." required />
+                </label>
+                <label>
+                  Priority
+                  <select id="task-priority">
+                    <option value="Low">Low</option>
+                    <option value="Medium" selected>Medium</option>
+                    <option value="High">High</option>
+                  </select>
+                </label>
+                <label>
+                  Due date
+                  <input type="date" id="task-dueDate" />
+                </label>
+              </div>
+
+              <div class="task-form-actions">
+                <button type="submit" class="primary-button">Add task</button>
+                <button type="button" class="ghost-button" id="reset-task-form">Clear</button>
+              </div>
+            </form>
+
+            <div class="task-toolbar">
+              <input type="search" id="task-search" placeholder="Search tasks" />
+              <select id="task-filter">
+                <option value="all">All tasks</option>
+                <option value="active">Active</option>
+                <option value="completed">Completed</option>
+              </select>
+            </div>
+
+            <div class="planner-summary" id="planner-summary"></div>
+            <div class="task-list" id="task-list"></div>
+          </div>
+        </section>
+
+        <section class="view hidden" id="focus-view">
+          <div class="focus-card card">
+            <div class="section-heading">
+              <h3>Focus Zone</h3>
+            </div>
+            <div class="focus-layout">
+              <div class="timer-panel">
+                <div class="mode-selector" id="focus-mode-selector">
+                  <button class="mode-button active" data-focus-mode="pomodoro">Pomodoro</button>
+                  <button class="mode-button" data-focus-mode="custom">Custom</button>
+                </div>
+
+                <div class="custom-timer-row">
+                  <label>
+                    Custom minutes
+                    <input type="number" id="custom-minutes" value="25" min="1" max="180" />
+                  </label>
+                </div>
+
+                <div class="timer-display" id="timer-display">25:00</div>
+
+                <div class="timer-actions">
+                  <button class="primary-button" data-focus-action="start">Start</button>
+                  <button class="secondary-button" data-focus-action="pause">Pause</button>
+                  <button class="ghost-button" data-focus-action="stop">Stop</button>
+                  <button class="danger-button" data-focus-action="reset">Reset</button>
+                </div>
+              </div>
+
+              <div class="focus-summary" id="focus-summary"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="view hidden" id="quiz-view">
+          <div class="quiz-card card">
+            <div class="section-heading">
+              <h3>AI Quiz Arena</h3>
+            </div>
+
+            <div class="quiz-setup" id="quiz-setup">
+              <div class="field-grid">
+                <label>
+                  Subject
+                  <select id="quiz-subject">
+                    <option value="Science">Science</option>
+                    <option value="Maths">Maths</option>
+                    <option value="Computer/AI">Computer/AI</option>
+                  </select>
+                </label>
+                <label>
+                  Difficulty
+                  <select id="quiz-difficulty">
+                    <option value="Easy">Easy</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Hard">Hard</option>
+                  </select>
+                </label>
+              </div>
+              <button class="primary-button" id="start-quiz-button">Start quiz</button>
+            </div>
+
+            <div class="quiz-active hidden" id="quiz-active">
+              <div class="quiz-header-row">
+                <span id="quiz-meta">Question 1 of 5</span>
+                <span id="quiz-timer">60s</span>
+              </div>
+              <div class="quiz-question" id="quiz-question"></div>
+              <div class="quiz-options" id="quiz-options"></div>
+              <div class="timer-actions">
+                <button class="ghost-button" id="abandon-quiz-button">Abandon quiz</button>
+              </div>
+            </div>
+
+            <div class="quiz-result hidden" id="quiz-result"></div>
+          </div>
+        </section>
+
+        <section class="view hidden" id="games-view">
+          <div class="games-card card">
+            <div class="section-heading">
+              <h3>AI Game Zone</h3>
+            </div>
+            <div class="game-grid" id="game-grid"></div>
+            <div class="game-stage hidden" id="game-stage"></div>
+          </div>
+        </section>
+
+        <section class="view hidden" id="notes-view">
+          <div class="notes-card card">
+            <div class="section-heading">
+              <h3>Smart Notes</h3>
+            </div>
+
+            <form class="note-form" id="note-form">
+              <div class="field-grid">
+                <label>
+                  Title
+                  <input type="text" id="note-title" placeholder="Note title" required />
+                </label>
+                <label>
+                  Subject
+                  <input type="text" id="note-subject" placeholder="Biology" required />
+                </label>
+              </div>
+
+              <label>
+                Notes
+                <textarea id="note-content" rows="5" placeholder="Write your study note..."></textarea>
+              </label>
+
+              <div class="task-form-actions">
+                <button type="submit" class="primary-button">Save note</button>
+                <button type="button" class="ghost-button" id="clear-note-form">New note</button>
+              </div>
+            </form>
+
+            <div class="task-toolbar">
+              <input type="search" id="note-search" placeholder="Search notes" />
+            </div>
+
+            <div class="note-list" id="note-list"></div>
+          </div>
+        </section>
+
+        <section class="view hidden" id="goals-view">
+          <div class="goals-card card">
+            <div class="section-heading">
+              <h3>Goals</h3>
+            </div>
+
+            <form class="task-form" id="goal-form">
+              <div class="field-grid">
+                <label>
+                  Goal title
+                  <input type="text" id="goal-title" placeholder="Complete algebra practice" required />
+                </label>
+                <label>
+                  Goal type
+                  <select id="goal-type">
+                    <option value="Daily">Daily</option>
+                    <option value="Weekly">Weekly</option>
+                  </select>
+                </label>
+                <label>
+                  Target
+                  <input type="number" id="goal-target" min="1" value="1" required />
+                </label>
+              </div>
+
+              <div class="task-form-actions">
+                <button type="submit" class="primary-button">Add goal</button>
+              </div>
+            </form>
+
+            <div class="goal-list" id="goal-list"></div>
+          </div>
+        </section>
+
+        <section class="view hidden" id="analytics-view">
+          <div class="analytics-card card">
+            <div class="section-heading">
+              <h3>Analytics</h3>
+            </div>
+            <div class="analytics-grid" id="analytics-grid"></div>
+          </div>
+        </section>
+
+        <section class="view hidden" id="profile-view">
+          <div class="profile-card card">
+            <div class="section-heading">
+              <h3>Profile</h3>
+            </div>
+
+            <div class="profile-grid">
+              <form class="profile-form" id="profile-form">
+                <div class="field-grid">
+                  <label>
+                    Name
+                    <input type="text" id="profile-name" />
+                  </label>
+                  <label>
+                    Class
+                    <input type="text" id="profile-class" placeholder="12-A" />
+                  </label>
+                  <label>
+                    Roll number
+                    <input type="text" id="profile-roll" placeholder="R-204" />
+                  </label>
+                  <label>
+                    School
+                    <input type="text" id="profile-school" placeholder="Green Valley High" />
+                  </label>
+                </div>
+                <button type="submit" class="primary-button">Save profile</button>
+              </form>
+
+              <div class="profile-side">
+                <div class="badges-block">
+                  <h4>Achievements</h4>
+                  <div class="achievement-list" id="achievement-list"></div>
+                </div>
+                <div class="badges-block">
+                  <h4>Local profile snapshot</h4>
+                  <div class="summary-pill">
+                    <div>
+                      <span>Total points</span>
+                      <strong id="profile-total-points">0</strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="view hidden" id="leaderboard-view">
+          <div class="leaderboard-card card">
+            <div class="section-heading">
+              <h3>Global Leaderboard</h3>
+            </div>
+
+            <div class="leaderboard-register">
+              <button class="primary-button" id="register-leaderboard-button">Register for leaderboard</button>
+              <button class="secondary-button" id="unregister-leaderboard-button">Remove registration</button>
+            </div>
+
+            <div id="leaderboard-status" class="meta-info"></div>
+            <div class="leaderboard-table" id="leaderboard-table"></div>
+          </div>
+        </section>
+
+        <section class="view hidden" id="settings-view">
+          <div class="settings-card card">
+            <div class="section-heading">
+              <h3>Settings</h3>
+            </div>
+
+            <div class="settings-list">
+              <div class="setting-row toggle-row">
+                <span>Light mode</span>
+                <input type="checkbox" id="toggle-light-mode" />
+              </div>
+              <div class="setting-row toggle-row">
+                <span>Dark mode</span>
+                <input type="checkbox" id="toggle-dark-mode" />
+              </div>
+              <div class="setting-row toggle-row">
+                <span>Notifications</span>
+                <input type="checkbox" id="toggle-notifications" />
+              </div>
+              <div class="setting-row">
+                <span>Profile settings</span>
+                <button class="secondary-button" id="profile-settings-button">Open profile settings</button>
+              </div>
+              <div class="setting-row">
+                <span>Reset all data</span>
+                <button class="danger-button" id="reset-data-button">Reset data</button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <div class="toast hidden" id="toast"></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
